@@ -12,8 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/productos")
 public class ProductoController {
+
     @Autowired
-    private ProductoService svc;
+    private ProductoService productoService;
 
     @PostMapping
     public ResponseEntity<Producto> create(@RequestBody Producto dto) {
@@ -22,21 +23,27 @@ public class ProductoController {
                 .precio(dto.getPrecio())
                 .categoria(dto.getCategoria())
                 .build();
-        return ResponseEntity.status(HttpStatus.CREATED).body(svc.save(p));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(p));
     }
 
     @GetMapping
     public List<Producto> list() {
-        return svc.findAll();
+        return productoService.findAll();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Producto> update(@PathVariable Long id, @RequestBody Producto dto) {
-        return svc.findById(id).map(orig -> {
+        return productoService.findById(id).map(orig -> {
             orig.setNombre(dto.getNombre());
             orig.setPrecio(dto.getPrecio());
             orig.setCategoria(dto.getCategoria());
-            return ResponseEntity.ok(svc.save(orig));
+            return ResponseEntity.ok(productoService.save(orig));
         }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        productoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -13,7 +13,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/productos").hasAnyRole("ADMIN", "SUPERADMIN")
                         .requestMatchers("/productos/**").hasRole("ADMIN")
@@ -25,6 +24,6 @@ public class SecurityConfig {
 
     @Bean
     public JwtFilter jwtFilter() {
-        return new JwtFilter();
+        return new JwtFilter("");
     }
 }

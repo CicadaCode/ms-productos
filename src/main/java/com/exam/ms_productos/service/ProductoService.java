@@ -11,9 +11,10 @@ import java.util.Optional;
 @Service
 public class ProductoService {
     @Autowired
-    private ProductoRepository repo;
-    public Producto save(Producto p) { return repo.save(p); }
-    public List<Producto> findAll() { return repo.findAll(); }
-    public Optional<Producto> findById(Long id) { return repo.findById(id); }
-    public void delete(Long id) { repo.deleteById(id); }
+    private ProductoRepository productoRepository;
+
+    public Producto save(Producto p) { return productoRepository.save(p); }
+    public List<Producto> findAll() { return productoRepository.findAll(); }
+    public Optional<Producto> findById(Long id) { return productoRepository.findById(id); }
+    public void delete(Long id) { productoRepository.deleteById(id); }
 }
