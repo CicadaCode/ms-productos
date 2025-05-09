@@ -2,7 +2,6 @@ package com.exam.ms_productos.controller;
 
 import com.exam.ms_productos.entity.Producto;
 import com.exam.ms_productos.service.ProductoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,11 @@ import java.util.List;
 @RequestMapping("/productos")
 public class ProductoController {
 
-    @Autowired
-    private ProductoService productoService;
+    private final ProductoService productoService;
+
+    public ProductoController(ProductoService productoService) {
+        this.productoService = productoService;
+    }
 
     @PostMapping
     public ResponseEntity<Producto> create(@RequestBody Producto dto) {
