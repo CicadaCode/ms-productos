@@ -10,7 +10,12 @@ import java.util.Optional;
 
 @Service
 public class ProductoService {
+
     @Autowired
+    public ProductoService(ProductoRepository productoRepository) {
+        this.productoRepository = productoRepository;
+    }
+
     private ProductoRepository productoRepository;
 
     public Producto save(Producto p) { return productoRepository.save(p); }
